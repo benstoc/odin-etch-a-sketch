@@ -21,14 +21,13 @@ function getDimensions () {
 }
 
 function calcBoxSize (dimensions) {
-    return Math.floor(CONTAINER_SIZE_PX / dimensions);
+    return CONTAINER_SIZE_PX / dimensions;
 }
 
 function createBoxGrid (dimensions = 16) {
     const boxSize = calcBoxSize(dimensions) + "px";
     const numOfBoxes = dimensions * dimensions
     const gridContainer = document.querySelector(".container");
-    gridContainer.style.paddingBottom = (dimensions - 1) + "px"; // temp
 
     for (let i = 0; i < numOfBoxes; i++) {
         const div = document.createElement("div")
