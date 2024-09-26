@@ -8,10 +8,16 @@
     <script defer src="etchASketch.js"></script>
   </head>
   <body>
-    <button id="new">New grid</button>
-    <button id="reset">Reset grid</button>
-    <input id="random-color" type="checkbox" value="random-color">
-    <label for="random-color">Randomize colors</label>
+    <div>
+      <button id="new">New grid</button>
+      <button id="reset">Reset grid</button>
+    </div>
+    <div>
+      <input type="checkbox" id="random-color" value="random-color">
+      <label for="random-color">Randomize colors</label>
+      <input type="checkbox" id="borders" value="borders" checked>
+      <label for="borders">Borders</label>
+    </div>
     <div class="container"></div>
   </body>
 </html>

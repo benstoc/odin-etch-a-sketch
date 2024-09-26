@@ -5,7 +5,6 @@ function getDimensions () {
     let height;
     while (true) {
         height = +prompt("Enter the desired grid height (max of 100):");
-        console.log(height, typeof height)
         if (height === null) {
             break;
         } else if (typeof height === "number" && !isNaN(height)) {
@@ -35,6 +34,9 @@ function createBoxGrid (dimensions = 16) {
         box.classList.add("box");
         box.style.width = boxSize;
         box.style.height = boxSize;
+        if (borderCheck.checked) {
+            box.style.border = "1px solid lightgrey"
+        }
 
         box.addEventListener("mouseenter", () => {
             if (!randomizeColors) box.style.backgroundColor = COLOR;
@@ -64,12 +66,12 @@ function clearBoxes () {
     });
 }
 
-createBoxGrid()
 const gridContainer = document.querySelector(".container");
 const gridBoxes = document.querySelectorAll(".box");
 const newBtn = document.querySelector("button#new");
 const resetBtn = document.querySelector("button#reset");
 const randomCheck = document.querySelector("#random-color");
+const borderCheck = document.querySelector("#borders"); 
 
 resetBtn.addEventListener("click", clearBoxes);
 newBtn.addEventListener("click", () => {
@@ -80,8 +82,21 @@ newBtn.addEventListener("click", () => {
     };
 });
 
-let randomizeColors = randomCheck.checked
+let randomizeColors = randomCheck.checked;
 randomCheck.addEventListener("click", () => {
     randomizeColors = randomCheck.checked
-    console.log(randomizeColors)
 })
+
+borderCheck.addEventListener("click", () => {
+    let borders = borderCheck.checked;
+    const gridBoxes = document.querySelectorAll(".box");
+
+    if (borders) gridBoxes.forEach(box => {
+        box.style.border = "1px solid lightgrey";
+    })
+    if (!borders) gridBoxes.forEach(box => {
+        box.style.border = "0";
+    })
+})
+
+createBoxGrid()
