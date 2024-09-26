@@ -28,3 +28,11 @@ function createBoxGrid () {
 }
 
 createBoxGrid()
+
+const gridBoxes = document.querySelectorAll(".box");
+gridBoxes.forEach((box) => {
+    box.addEventListener("mouseenter", ()=> {
+        console.log("test")
+        box.classList.add("color-box");
+    });
+});

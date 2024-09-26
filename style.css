@@ -19,3 +19,7 @@
 .box {
     border: 1px solid lightgrey;
 }
+
+.color-box {
+    background-color: greenyellow;
+}
