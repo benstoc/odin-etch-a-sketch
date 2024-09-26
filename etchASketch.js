@@ -14,6 +14,7 @@ function createBoxGrid () {
     const numOfBoxes = dimensions * dimensions
 
     const gridContainer = document.querySelector(".container");
+    gridContainer.style.paddingBottom = (dimensions - 1) + "px"; // temp
 
     for (let i = 0; i < numOfBoxes; i++) {
         const div = document.createElement("div")
