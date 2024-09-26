@@ -14,7 +14,7 @@ function getDimensions () {
         }
     }
     if (height > 100) {
-        alert("Input was over max height. \nCreating 100x100 grid.");
+        alert("Input was over max height. Creating 100x100 grid.");
         return 100;
     };
     return height
@@ -43,16 +43,30 @@ function createBoxGrid (dimensions = 16) {
     }
 }
 
-createBoxGrid()
+function clearGrid () {
+    const gridContainer = document.querySelector(".container");
+    gridContainer.innerHTML = "";
+}
 
+function clearBoxes () {
+    const boxes = document.querySelectorAll(".color-box");
+    boxes.forEach((box) => {
+        box.classList.remove("color-box");
+    });
+}
+
+createBoxGrid()
 const gridContainer = document.querySelector(".container");
 const gridBoxes = document.querySelectorAll(".box");
-const btn = document.querySelector("button");
+const newBtn = document.querySelector("button#new");
+const resetBtn = document.querySelector("button#reset");
 
-btn.addEventListener("click", () => {
+newBtn.addEventListener("click", () => {
     const dimensions = getDimensions();
     if (dimensions) {
-        gridContainer.innerHTML = "";
+        clearGrid();
         createBoxGrid(dimensions);
     };
 });
+
+resetBtn.addEventListener("click", clearBoxes);
