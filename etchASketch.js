@@ -1,4 +1,5 @@
 const CONTAINER_SIZE_PX = 700;
+const COLOR = "greenyellow";
 
 function getDimensions () {
     let height;
@@ -30,17 +31,25 @@ function createBoxGrid (dimensions = 16) {
     const gridContainer = document.querySelector(".container");
 
     for (let i = 0; i < numOfBoxes; i++) {
-        const div = document.createElement("div")
-        div.classList.add("box");
-        div.style.width = boxSize;
-        div.style.height = boxSize;
+        const box = document.createElement("div")
+        box.classList.add("box");
+        box.style.width = boxSize;
+        box.style.height = boxSize;
 
-        div.addEventListener("mouseenter", () => {
-            div.classList.add("color-box");
+        box.addEventListener("mouseenter", () => {
+            if (!randomizeColors) box.style.backgroundColor = COLOR;
+            if (randomizeColors) box.style.backgroundColor = randomColor();
         });
 
-        gridContainer.appendChild(div);
+        gridContainer.appendChild(box);
     }
+}
+
+function randomColor () {
+    let red = Math.random() * 255;
+    let green = Math.random() * 255;
+    let blue = Math.random() * 255;
+    return`rgba(${red}, ${green}, ${blue}, 1)`
 }
 
 function clearGrid () {
@@ -49,9 +58,9 @@ function clearGrid () {
 }
 
 function clearBoxes () {
-    const boxes = document.querySelectorAll(".color-box");
+    const boxes = document.querySelectorAll(".box");
     boxes.forEach((box) => {
-        box.classList.remove("color-box");
+        box.style.backgroundColor = 'transparent'
     });
 }
 
@@ -60,7 +69,9 @@ const gridContainer = document.querySelector(".container");
 const gridBoxes = document.querySelectorAll(".box");
 const newBtn = document.querySelector("button#new");
 const resetBtn = document.querySelector("button#reset");
+const randomCheck = document.querySelector("#random-color");
 
+resetBtn.addEventListener("click", clearBoxes);
 newBtn.addEventListener("click", () => {
     const dimensions = getDimensions();
     if (dimensions) {
@@ -69,4 +80,8 @@ newBtn.addEventListener("click", () => {
     };
 });
 
-resetBtn.addEventListener("click", clearBoxes);
+let randomizeColors = randomCheck.checked
+randomCheck.addEventListener("click", () => {
+    randomizeColors = randomCheck.checked
+    console.log(randomizeColors)
+})
