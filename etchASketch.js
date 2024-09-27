@@ -34,6 +34,7 @@ function createBoxGrid (dimensions = 16) {
         box.classList.add("box");
         box.style.width = boxSize;
         box.style.height = boxSize;
+        box.style.opacity = 0;
         if (borderCheck.checked) {
             box.style.border = "1px solid lightgrey"
         }
@@ -41,6 +42,8 @@ function createBoxGrid (dimensions = 16) {
         box.addEventListener("mouseenter", () => {
             if (!randomizeColors) box.style.backgroundColor = COLOR;
             if (randomizeColors) box.style.backgroundColor = randomColor();
+            box.style.opacity = `${+getComputedStyle(box)['opacity'] + 0.2}`;
+            console.log(box.style.backgroundColor)
         });
 
         gridContainer.appendChild(box);
@@ -63,6 +66,7 @@ function clearBoxes () {
     const boxes = document.querySelectorAll(".box");
     boxes.forEach((box) => {
         box.style.backgroundColor = 'transparent'
+        box.style.opacity = 0;
     });
 }
 
