@@ -1,21 +1,52 @@
 * {
     /*border: 1px solid red;*/
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: monospace;
+}
+
+body {
+    padding: 24px;
 }
 
 .container {
     background-color: whitesmoke;
-    width: 700px;
-    height: 700px;
+    width: 600px;
+    height: 600px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    border: 2px solid rgb(233, 233, 233);
+    border-radius: 16px;
+    overflow: auto;
+}
+
+.box {
+    box-sizing: border-box;
 }
 
 .color-box {
     background-color: greenyellow;
+}
+
+.header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 64px;
+    margin: 16px auto;
+    width: 650px;
+    
+}
+
+button {
+    padding: 12px 24px;
+    border-radius: 16px;
+    border-color: transparent;
+}
+
+h1 {
+    text-align: center;
 }

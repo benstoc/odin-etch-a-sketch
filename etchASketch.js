@@ -1,4 +1,4 @@
-const CONTAINER_SIZE_PX = 700;
+const CONTAINER_SIZE_PX = 600;
 const COLOR = "greenyellow";
 
 function getDimensions () {
