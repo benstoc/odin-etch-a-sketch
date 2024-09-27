@@ -1,5 +1,5 @@
 const CONTAINER_SIZE_PX = 600;
-const COLOR = "greenyellow";
+const COLOR = "black";
 
 function getDimensions () {
     let height;
