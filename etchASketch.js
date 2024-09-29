@@ -4,19 +4,13 @@ const COLOR = "black";
 function getDimensions () {
     let height;
     while (true) {
-        height = +prompt("Enter the desired grid height (max of 100):");
-        if (height === null) {
-            break;
-        } else if (typeof height === "number" && !isNaN(height)) {
+        height = prompt("Enter the desired grid height (1 - 100):");
+        if ((height >= 1 && height <= 100) || height === null) {
             break;
         } else {
             alert("Invalid input, please try again.");
         }
     }
-    if (height > 100) {
-        alert("Input was over max height. Creating 100x100 grid.");
-        return 100;
-    };
     return height
 }
 
@@ -42,8 +36,7 @@ function createBoxGrid (dimensions = 16) {
         box.addEventListener("mouseenter", () => {
             if (!randomizeColors) box.style.backgroundColor = COLOR;
             if (randomizeColors) box.style.backgroundColor = randomColor();
-            box.style.opacity = `${+getComputedStyle(box)['opacity'] + 0.2}`;
-            console.log(box.style.backgroundColor)
+            box.style.opacity = +getComputedStyle(box)['opacity'] + 0.2;
         });
 
         gridContainer.appendChild(box);
