@@ -48,6 +48,13 @@ button {
     border: 1px solid rgb(233, 233, 233);
 }
 
+button,
+input,
+label,
+.check {
+    cursor: pointer;
+}
+
 h1 {
     text-align: center;
 }
