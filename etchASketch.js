@@ -1,27 +1,30 @@
-const CONTAINER_SIZE_PX = 600;
+const gridContainer = document.querySelector(".container");
+const gridBoxes = document.querySelectorAll(".box");
+const newBtn = document.querySelector("button#new");
+const resetBtn = document.querySelector("button#reset");
+const randomCheck = document.querySelector("#random-color");
+const borderCheck = document.querySelector("#borders");
+const radioBtns = document.querySelectorAll("input[type=radio]")
+
+const CONTAINER_SIZE_PX = +getComputedStyle(gridContainer).width.replace('px', '');
 const COLOR = "black";
+let currentGridSize;
 
-function getDimensions () {
-    let height;
-    while (true) {
-        height = prompt("Enter the desired grid height (1 - 100):");
-        if ((height >= 1 && height <= 100) || height === null) {
-            break;
-        } else {
-            alert("Invalid input, please try again.");
-        }
-    }
-    return height
-}
+resetBtn.addEventListener("click", resetGrid);
+borderCheck.addEventListener("click", toggleBorders);
 
-function calcBoxSize (dimensions) {
-    return CONTAINER_SIZE_PX / dimensions;
-}
+radioBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        gridContainer.innerHTML = '';
+        size = btn.getAttribute('id');
+        createGrid(size);
+    });
+});
 
-function createBoxGrid (dimensions = 16) {
-    const boxSize = calcBoxSize(dimensions) + "px";
-    const numOfBoxes = dimensions * dimensions
-    const gridContainer = document.querySelector(".container");
+function createGrid(dimensions = 16) {
+    const boxSize = (CONTAINER_SIZE_PX / dimensions) + "px";
+    const numOfBoxes = dimensions * dimensions;
+    currentGridSize = dimensions;
 
     for (let i = 0; i < numOfBoxes; i++) {
         const box = document.createElement("div")
@@ -30,61 +33,33 @@ function createBoxGrid (dimensions = 16) {
         box.style.height = boxSize;
         box.style.opacity = 0;
         if (borderCheck.checked) {
-            box.style.border = "1px solid lightgrey"
+            box.style.border = "1px solid lightgrey";
         }
 
-        box.addEventListener("mouseenter", () => {
-            if (!randomizeColors) box.style.backgroundColor = COLOR;
-            if (randomizeColors) box.style.backgroundColor = randomColor();
-            box.style.opacity = +getComputedStyle(box)['opacity'] + 0.2;
-        });
-
+        box.addEventListener("mouseenter", updateTile);
         gridContainer.appendChild(box);
     }
 }
 
-function randomColor () {
+function updateTile() {
+    if (!randomCheck.checked) this.style.backgroundColor = COLOR;
+    if (randomCheck.checked) this.style.backgroundColor = randomColor();
+    this.style.opacity = +getComputedStyle(this).opacity + 0.2;
+}
+
+function randomColor() {
     let red = Math.random() * 255;
     let green = Math.random() * 255;
     let blue = Math.random() * 255;
-    return`rgba(${red}, ${green}, ${blue}, 1)`
+    return`rgba(${red}, ${green}, ${blue}, 1)`;
 }
 
-function clearGrid () {
-    const gridContainer = document.querySelector(".container");
+function resetGrid() {
     gridContainer.innerHTML = "";
+    createGrid(currentGridSize);
 }
 
-function clearBoxes () {
-    const boxes = document.querySelectorAll(".box");
-    boxes.forEach((box) => {
-        box.style.backgroundColor = 'transparent'
-        box.style.opacity = 0;
-    });
-}
-
-const gridContainer = document.querySelector(".container");
-const gridBoxes = document.querySelectorAll(".box");
-const newBtn = document.querySelector("button#new");
-const resetBtn = document.querySelector("button#reset");
-const randomCheck = document.querySelector("#random-color");
-const borderCheck = document.querySelector("#borders"); 
-
-resetBtn.addEventListener("click", clearBoxes);
-newBtn.addEventListener("click", () => {
-    const dimensions = getDimensions();
-    if (dimensions) {
-        clearGrid();
-        createBoxGrid(dimensions);
-    };
-});
-
-let randomizeColors = randomCheck.checked;
-randomCheck.addEventListener("click", () => {
-    randomizeColors = randomCheck.checked
-})
-
-borderCheck.addEventListener("click", () => {
+function toggleBorders() {
     let borders = borderCheck.checked;
     const gridBoxes = document.querySelectorAll(".box");
 
@@ -94,6 +69,6 @@ borderCheck.addEventListener("click", () => {
     if (!borders) gridBoxes.forEach(box => {
         box.style.border = "0";
     })
-})
+}
 
-createBoxGrid()
+createGrid();
